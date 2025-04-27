@@ -184,8 +184,8 @@ public class MemberController implements Controller {
 
     System.out.printf("== '%s' 회원의 정보 ==\n", member.getUsername());
     System.out.printf("아이디 : %s\n", member.getUsername());
-    System.out.printf("가입 날짜 : %s\n", member.getRegDate());
-    System.out.printf("수정 날짜 : %s\n", member.getUpdateDate());
+    System.out.printf("가입 날짜 : %s\n", member.getFormatRegDate());
+    System.out.printf("수정 날짜 : %s\n", member.getFormatUpdateDate());
     System.out.printf("이름 : %s\n", member.getName());
     System.out.printf("회원종류 : %s\n", member.getType());
   }

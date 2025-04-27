@@ -11,12 +11,7 @@ import java.util.Map;
 public class MemberRepository {
   public Member findByUsername(String username) {
     SecSql sql = new SecSql();
-    sql.append("SELECT M.id,");
-    sql.append("DATE_FORMAT(M.regDate, '%Y-%m-%d %H:%i:%s') AS regDate,");
-    sql.append("DATE_FORMAT(M.updateDate, '%Y-%m-%d %H:%i:%s') AS updateDate,");
-    sql.append("M.username,");
-    sql.append("M.password,");
-    sql.append("M.name");
+    sql.append("SELECT M.*");
     sql.append("FROM `member` AS M");
     sql.append("WHERE username = ?", username);
 
