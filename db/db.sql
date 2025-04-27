@@ -81,6 +81,13 @@ CREATE TABLE `member` (
 INSERT INTO `member`
 SET regDate = NOW(),
 updateDate = NOW(),
+username = 'admin',
+password = 'admin',
+name = '관리자';
+
+INSERT INTO `member`
+SET regDate = NOW(),
+updateDate = NOW(),
 username = 'user1',
 password = '1234',
 name = '양관식';
@@ -99,7 +106,6 @@ username = 'user3',
 password = '1234',
 name = '양금명';
 
-# 멤버조회
 SELECT *
 FROM member;
 
@@ -113,3 +119,12 @@ M.name AS writerName
 FROM article AS A
 INNER JOIN `member` AS M
 ON A.memberId = M.id;
+
+# Board 테이블 생성
+CREATE TABLE board (
+	id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	regDate DATETIME NOT NULL,
+	updateDate DATETIME NOT NULL,
+	`code` VARCHAR(50) NOT NULL UNIQUE COMMENT '게시판 코드(예 : notice, free, qna)',
+	`name` VARCHAR(100) NOT NULL UNIQUE COMMENT '게시판 이름(예 : 공지사항, 자유게시판)'
+);

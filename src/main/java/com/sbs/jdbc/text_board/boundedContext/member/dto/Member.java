@@ -33,7 +33,7 @@ public class Member {
     return isAdmin() ? "관리자" : "일반회원";
   }
 
-  private boolean isAdmin() {
+  public boolean isAdmin() {
     return username.equals("admin");
   }
 }
