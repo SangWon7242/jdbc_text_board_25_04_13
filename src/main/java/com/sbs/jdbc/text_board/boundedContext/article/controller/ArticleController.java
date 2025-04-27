@@ -1,5 +1,6 @@
 package com.sbs.jdbc.text_board.boundedContext.article.controller;
 
+import com.sbs.jdbc.text_board.boundedContext.common.controller.Controller;
 import com.sbs.jdbc.text_board.boundedContext.member.dto.Member;
 import com.sbs.jdbc.text_board.global.base.Rq;
 import com.sbs.jdbc.text_board.boundedContext.article.dto.Article;
@@ -8,11 +9,26 @@ import com.sbs.jdbc.text_board.container.Container;
 
 import java.util.List;
 
-public class ArticleController {
+public class ArticleController implements Controller {
   private ArticleService articleService;
 
   public ArticleController() {
     articleService = Container.articleService;
+  }
+
+  @Override
+  public void performAction(Rq rq) {
+    if (rq.getActionPath().equals("/usr/article/write")) {
+      doWrite(rq);
+    } else if (rq.getActionPath().equals("/usr/article/list")) {
+      showList(rq);
+    } else if (rq.getActionPath().equals("/usr/article/detail")) {
+      showDetail(rq);
+    } else if (rq.getActionPath().equals("/usr/article/modify")) {
+      doModify(rq);
+    } else if (rq.getActionPath().equals("/usr/article/delete")) {
+      doDelete(rq);
+    }
   }
 
   public void doWrite(Rq rq) {
@@ -42,7 +58,7 @@ public class ArticleController {
     Member member = rq.getLoginedMember();
     int memberId = member.getId();
 
-    int id = articleService.write(memberId, subject, content);
+    int id = articleService.write(memberId, subject, content, 0);
 
     System.out.printf("%d번 게시물이 생성되었습니다.\n", id);
   }

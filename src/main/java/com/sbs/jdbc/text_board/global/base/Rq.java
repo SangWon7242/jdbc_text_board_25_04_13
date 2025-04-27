@@ -5,6 +5,7 @@ import com.sbs.jdbc.text_board.global.session.Session;
 import com.sbs.jdbc.text_board.global.util.Util;
 import com.sbs.jdbc.text_board.container.Container;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Map;
 
@@ -18,12 +19,39 @@ public class Rq {
   private String urlPath;
 
   @Getter
+  @Setter
+  String controllerTypeCode;
+
+  @Getter
+  @Setter
+  String controllerName;
+
+  @Getter
+  @Setter
+  String actionMethodName;
+
+  @Getter
   private Session session;
 
   private String loginedMember = "loginedMember";
 
   public Rq() {
     session = Container.session;
+  }
+
+  public String getActionPath() {
+    String[] commandBits = urlPath.split("/");
+
+    if(commandBits.length < 4) {
+      return null;
+    }
+    // /usr/article/list
+    // [, "usr", "article", "list"]
+    controllerTypeCode = commandBits[1];
+    controllerName = commandBits[2];
+    actionMethodName = commandBits[3];
+
+    return "/%s/%s/%s".formatted(controllerTypeCode, controllerName, actionMethodName);
   }
 
   public void setCommand(String url) {

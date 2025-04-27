@@ -15,7 +15,7 @@ public class ArticleRepository {
     articles = new ArrayList<>();
   }
 
-  public int write(int memberId, String subject, String content) {
+  public int write(int memberId, String subject, String content, int hit) {
     SecSql sql = new SecSql();
     sql.append("INSERT INTO article");
     sql.append("SET regDate = NOW()");
@@ -23,6 +23,7 @@ public class ArticleRepository {
     sql.append(", memberId = ?", memberId);
     sql.append(", subject = ?", subject);
     sql.append(", content = ?", content);
+    sql.append(", hit = ?", hit);
 
     int id = MysqlUtil.insert(sql);
 

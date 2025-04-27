@@ -1,15 +1,29 @@
 package com.sbs.jdbc.text_board.boundedContext.member.controller;
 
+import com.sbs.jdbc.text_board.boundedContext.common.controller.Controller;
 import com.sbs.jdbc.text_board.global.base.Rq;
 import com.sbs.jdbc.text_board.boundedContext.member.dto.Member;
 import com.sbs.jdbc.text_board.boundedContext.member.service.MemberService;
 import com.sbs.jdbc.text_board.container.Container;
 
-public class MemberController {
+public class MemberController implements Controller {
   private MemberService memberService;
 
   public MemberController() {
     memberService = Container.memberService;
+  }
+
+  @Override
+  public void performAction(Rq rq) {
+    if (rq.getActionPath().equals("/usr/member/join")) {
+      doJoin(rq);
+    } else if (rq.getActionPath().equals("/usr/member/login")) {
+      doLogin(rq);
+    } else if (rq.getActionPath().equals("/usr/member/logout")) {
+      doLogout(rq);
+    } else if (rq.getActionPath().equals("/usr/member/myPage")) {
+      showMyPage(rq);
+    }
   }
 
   public void doJoin(Rq rq) {
@@ -19,7 +33,7 @@ public class MemberController {
     String name;
     Member member;
 
-    if(rq.isLogined()) {
+    if (rq.isLogined()) {
       System.out.println("로그아웃 후 이용해주세요.");
       return;
     }
@@ -99,7 +113,7 @@ public class MemberController {
     String password;
     Member member;
 
-    if(rq.isLogined()) {
+    if (rq.isLogined()) {
       System.out.println("로그아웃 후 이용해주세요.");
       return;
     }
@@ -150,7 +164,7 @@ public class MemberController {
   }
 
   public void doLogout(Rq rq) {
-    if(rq.isLogouted()) {
+    if (rq.isLogouted()) {
       System.out.println("로그인 후 이용해주세요.");
       return;
     }
@@ -161,7 +175,7 @@ public class MemberController {
   }
 
   public void showMyPage(Rq rq) {
-    if(rq.isLogouted()) {
+    if (rq.isLogouted()) {
       System.out.println("로그인 후 이용해주세요.");
       return;
     }

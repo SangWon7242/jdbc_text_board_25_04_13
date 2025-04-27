@@ -59,9 +59,6 @@ hit = 3;
 SELECT *
 FROM article;
 
-# 게시물 데이터 초기화(데이터 추가시 1번 부터 시작)
-TRUNCATE article;
-
 # 날짜 출력 포맷 변경
 SELECT A.id,
 DATE_FORMAT(A.regDate, '%Y-%m-%d %H:%i:%s') AS regDate,
@@ -101,6 +98,10 @@ updateDate = NOW(),
 username = 'user3',
 password = '1234',
 name = '양금명';
+
+# 멤버조회
+SELECT *
+FROM member;
 
 # Article 테이블과 Member 테이블을 inner join
 SELECT A.id,
