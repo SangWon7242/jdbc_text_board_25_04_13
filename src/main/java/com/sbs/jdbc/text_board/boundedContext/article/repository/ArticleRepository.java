@@ -5,6 +5,7 @@ import com.sbs.jdbc.text_board.global.util.dbUtil.MysqlUtil;
 import com.sbs.jdbc.text_board.global.util.dbUtil.SecSql;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -42,7 +43,7 @@ public class ArticleRepository {
 
     List<Map<String, Object>> articleListMap = MysqlUtil.selectRows(sql);
 
-    if(articleListMap.isEmpty()) return null;
+    if(articleListMap.isEmpty()) return Collections.emptyList();
 
     List<Article> articles = new ArrayList<>();
 

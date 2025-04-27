@@ -9,12 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 public class MemberRepository {
-  private List<Member> members;
-
-  public MemberRepository() {
-    members = new ArrayList<>();
-  }
-
   public Member findByUsername(String username) {
     SecSql sql = new SecSql();
     sql.append("SELECT M.id,");

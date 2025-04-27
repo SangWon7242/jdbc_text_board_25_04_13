@@ -6,6 +6,7 @@ import com.sbs.jdbc.text_board.global.util.dbUtil.MysqlUtil;
 import com.sbs.jdbc.text_board.global.util.dbUtil.SecSql;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +37,16 @@ public class BoardRepository {
   }
 
   public Board findByBoardCode(String code) {
-    return null;
+    SecSql sql = new SecSql();
+    sql.append("SELECT *");
+    sql.append("FROM board");
+    sql.append("WHERE `code` = ?", code);
+
+    Map<String, Object> boardMap = MysqlUtil.selectRow(sql);
+
+    if(boardMap.isEmpty()) return null;
+
+    return new Board(boardMap);
   }
 
   public Board findById(int id) {
@@ -60,7 +70,7 @@ public class BoardRepository {
 
     List<Map<String, Object>> boardListMap = MysqlUtil.selectRows(sql);
 
-    if(boardListMap.isEmpty()) return null;
+    if(boardListMap.isEmpty()) return Collections.emptyList(); // 비어있는 리스트 반환
 
     List<Board> boards = new ArrayList<>();
 
