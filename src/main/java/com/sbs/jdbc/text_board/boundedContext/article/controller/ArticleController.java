@@ -1,5 +1,7 @@
 package com.sbs.jdbc.text_board.boundedContext.article.controller;
 
+import com.sbs.jdbc.text_board.boundedContext.board.dto.Board;
+import com.sbs.jdbc.text_board.boundedContext.board.service.BoardService;
 import com.sbs.jdbc.text_board.boundedContext.common.controller.Controller;
 import com.sbs.jdbc.text_board.boundedContext.member.dto.Member;
 import com.sbs.jdbc.text_board.global.base.Rq;
@@ -10,9 +12,11 @@ import com.sbs.jdbc.text_board.container.Container;
 import java.util.List;
 
 public class ArticleController implements Controller {
+  private BoardService boardService;
   private ArticleService articleService;
 
   public ArticleController() {
+    boardService = Container.boardService;
     articleService = Container.articleService;
   }
 
@@ -37,7 +41,32 @@ public class ArticleController implements Controller {
       return;
     }
 
-    System.out.println("== 게시물 작성 ==");
+    List<Board> boards = boardService.findAll();
+
+    if(boards.isEmpty()) {
+      System.out.println("작성 가능한 게시판이 없습니다.");
+      return;
+    }
+
+    System.out.println("== 게시판 목록 ==");
+    System.out.println("번호 | 이름 | 코드");
+    System.out.println("-".repeat(30));
+
+    boards.forEach(
+        board -> System.out.printf("%d | %s | %s\n", board.getId(), board.getName(), board.getCode())
+    );
+
+    System.out.print("게시판 번호를 선택해주세요 : ");
+    int boardId = Integer.parseInt(Container.sc.nextLine().trim());
+
+    Board selectedBoard = boardService.findById(boardId);
+
+    if(selectedBoard == null) {
+      System.out.println("존재하지 않는 게시판입니다.");
+      return;
+    }
+
+    System.out.printf("== '%s' 게시물 작성 ==\n", selectedBoard.getName());
 
     System.out.print("제목 : ");
     String subject = Container.sc.nextLine();
@@ -58,7 +87,7 @@ public class ArticleController implements Controller {
     Member member = rq.getLoginedMember();
     int memberId = member.getId();
 
-    int id = articleService.write(memberId, subject, content, 0);
+    int id = articleService.write(memberId, boardId, subject, content, 0);
 
     System.out.printf("%d번 게시물이 생성되었습니다.\n", id);
   }

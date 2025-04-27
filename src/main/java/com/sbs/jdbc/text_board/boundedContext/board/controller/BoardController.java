@@ -53,7 +53,7 @@ public class BoardController implements Controller {
 
     System.out.println("=== 게시판 코드 예시 ===");
     System.out.println("예: free, notice, qna, etc...");
-    System.out.println("=".repeat(10));
+    System.out.println("=".repeat(30));
 
     System.out.print("게시판 코드(영문) : ");
     String boardCode = Container.sc.nextLine();

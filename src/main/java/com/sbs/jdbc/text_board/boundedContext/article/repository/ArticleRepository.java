@@ -9,18 +9,13 @@ import java.util.List;
 import java.util.Map;
 
 public class ArticleRepository {
-  private List<Article> articles;
-
-  public ArticleRepository() {
-    articles = new ArrayList<>();
-  }
-
-  public int write(int memberId, String subject, String content, int hit) {
+  public int write(int memberId, int boardId, String subject, String content, int hit) {
     SecSql sql = new SecSql();
     sql.append("INSERT INTO article");
     sql.append("SET regDate = NOW()");
     sql.append(", updateDate = NOW()");
     sql.append(", memberId = ?", memberId);
+    sql.append(", boardId = ?", boardId);
     sql.append(", subject = ?", subject);
     sql.append(", content = ?", content);
     sql.append(", hit = ?", hit);
@@ -48,6 +43,8 @@ public class ArticleRepository {
     List<Map<String, Object>> articleListMap = MysqlUtil.selectRows(sql);
 
     if(articleListMap.isEmpty()) return null;
+
+    List<Article> articles = new ArrayList<>();
 
     for(Map<String, Object> articleMap : articleListMap) {
       articles.add(new Article(articleMap));

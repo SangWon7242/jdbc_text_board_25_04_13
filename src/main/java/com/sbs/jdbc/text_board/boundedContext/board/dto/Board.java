@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 @AllArgsConstructor
@@ -13,15 +14,15 @@ import java.util.Map;
 @ToString
 public class Board {
   private final int id;
-  private String regDate;
-  private String updateDate;
+  private LocalDateTime regDate;
+  private LocalDateTime updateDate;
   private String code;
   private String name;
 
   public Board(Map<String, Object> boardMap) {
     this.id = (int) boardMap.get("id");
-    this.regDate = (String) boardMap.get("regDate");
-    this.updateDate = (String) boardMap.get("updateDate");
+    this.regDate = (LocalDateTime) boardMap.get("regDate");
+    this.updateDate = (LocalDateTime) boardMap.get("updateDate");
     this.code = (String) boardMap.get("code");
     this.name = (String) boardMap.get("name");
   }
