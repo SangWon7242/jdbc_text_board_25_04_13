@@ -21,6 +21,7 @@ public class Article extends BaseDto {
   private int hit;
 
   private String writerName;
+  private String boardName;
 
   public Article(Map<String, Object> articleMap) {
     this.id = (int) articleMap.get("id");
@@ -33,6 +34,10 @@ public class Article extends BaseDto {
 
     if(articleMap.get("writerName") != null) {
       this.writerName = (String) articleMap.get("writerName");
+    }
+
+    if(articleMap.get("boardName") != null) {
+      this.boardName = (String) articleMap.get("boardName");
     }
   }
 }

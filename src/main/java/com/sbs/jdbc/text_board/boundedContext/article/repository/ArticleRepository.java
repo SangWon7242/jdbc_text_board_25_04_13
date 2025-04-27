@@ -26,12 +26,20 @@ public class ArticleRepository {
     return id;
   }
 
-  public List<Article> findAll() {
+  public List<Article> findAll(Integer boardId) {
     SecSql sql = new SecSql();
     sql.append("SELECT A.*, M.name AS writerName");
+    sql.append(", B.name AS boardName");
     sql.append("FROM article AS A");
     sql.append("INNER JOIN `member` AS M");
     sql.append("ON A.memberId = M.id");
+    sql.append("INNER JOIN board AS B");
+    sql.append("ON A.boardId = B.id");
+
+    if(boardId != null) {
+      sql.append("WHERE A.boardId = ?", boardId);
+    }
+
     sql.append("ORDER BY id DESC");
 
     List<Map<String, Object>> articleListMap = MysqlUtil.selectRows(sql);

@@ -18,7 +18,11 @@ public class ArticleService {
   }
 
   public List<Article> findAll() {
-    return articleRepository.findAll();
+    return articleRepository.findAll(null);
+  }
+
+  public List<Article> findByBoardId(int boardId) {
+    return articleRepository.findAll(boardId);
   }
 
   public Article findById(int id) {
