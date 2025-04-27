@@ -28,4 +28,12 @@ public class Member {
     this.password = (String) memberMap.get("password");
     this.name = (String) memberMap.get("name");
   }
+
+  public String getType() {
+    return isAdmin() ? "관리자" : "일반회원";
+  }
+
+  private boolean isAdmin() {
+    return username.equals("admin");
+  }
 }
